@@ -16,14 +16,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+     # 第一步：给 GitHub 安装这个叫 Bun 的工具
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: 20
+          bun-version: latest
 
+      # 第二步：安装依赖
+      - name: Install dependencies
+        run: bun install
+
+      # 第三步：运行打包（这次它能找到 bun 了）
       - name: Build
-        run: npm run build
-
+        run: bun run build
+        
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
