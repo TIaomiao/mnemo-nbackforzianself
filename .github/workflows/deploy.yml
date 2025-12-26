@@ -22,7 +22,7 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        # 这一步我们用最原始的 npm 强行安装，不再依赖 Bun
+        # 强制手动安装所有核心插件，防止它在打包时报错找不到包
         run: npm install unocss @unocss/vite @vitejs/plugin-vue --save-dev && npm install
 
       - name: Build
