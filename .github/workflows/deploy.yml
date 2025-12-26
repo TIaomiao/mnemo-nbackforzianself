@@ -22,9 +22,9 @@ jobs:
         with:
           bun-version: latest
 
-      # 第二步：安装依赖
-      - name: Install dependencies
-        run: bun install
+      - name: Install All Dependencies
+        # 这里我们强行手动安装 unocss 和相关插件，防止它“漏买”
+        run: bun add unocss @unocss/vite @vitejs/plugin-vue && bun install
 
       # 第三步：运行打包（这次它能找到 bun 了）
       - name: Build
