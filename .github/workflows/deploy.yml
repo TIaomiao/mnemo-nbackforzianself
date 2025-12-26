@@ -16,17 +16,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 关键步骤：在 GitHub 服务器上安装这个项目点名要的 Bun 工具
+      # 👇 关键步骤：安装 Bun 环境，解决 "bun: not found"
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      # 使用 Bun 完整安装所有依赖（包括报错找不到的 unocss）
+      # 👇 使用 Bun 安装依赖，解决 "Cannot find package 'unocss'"
       - name: Install dependencies
         run: bun install
 
-      # 使用 Bun 进行打包
+      # 👇 开始打包
       - name: Build
         run: bun run build
 
