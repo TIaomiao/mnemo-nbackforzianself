@@ -7,6 +7,6 @@ export default defineConfig({
     vue(),
     UnoCSS(), 
   ],
-  // 必须确保 base 路径和你现在的仓库名完全一致
+  // 必须对应你的仓库名，且两头都有斜杠
   base: '/mnemo-nbackforzianself/', 
 })
