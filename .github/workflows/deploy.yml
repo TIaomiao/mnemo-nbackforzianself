@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 'main' # 只有当你向 main 分支提交代码时才运行
+    branches: 'main'
 
 permissions:
   contents: read
@@ -16,24 +16,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-     # 第一步：给 GitHub 安装这个叫 Bun 的工具
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: 20
 
-      - name: Install All Dependencies
-        # 这里我们强行手动安装 unocss 和相关插件，防止它“漏买”
-        run: bun add unocss @unocss/vite @vitejs/plugin-vue && bun install
+      - name: Install Dependencies
+        # 这一步我们用最原始的 npm 强行安装，不再依赖 Bun
+        run: npm install unocss @unocss/vite @vitejs/plugin-vue --save-dev && npm install
 
-      # 第三步：运行打包（这次它能找到 bun 了）
       - name: Build
-        run: bun run build
-        
+        run: npm run build
+
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'dist/' # 打包后的文件夹
+          path: 'dist/'
 
   deploy:
     needs: build_site
