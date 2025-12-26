@@ -16,17 +16,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 👇 关键步骤：安装 Bun 环境，解决 "bun: not found"
+      # 1. 安装 Bun 工具 (解决 bun: not found)
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      # 👇 使用 Bun 安装依赖，解决 "Cannot find package 'unocss'"
-      - name: Install dependencies
-        run: bun install
+      # 2. 强行手动安装依赖 (解决 Cannot find package 'unocss')
+      # 我们直接告诉 Bun：把 unocss 和 vite 这些插件给我装好，别管原有的配置！
+      - name: Force Install Dependencies
+        run: bun add -d unocss @unocss/vite @vitejs/plugin-vue vite vue && bun install
 
-      # 👇 开始打包
+      # 3. 开始打包
       - name: Build
         run: bun run build
 
